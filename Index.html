@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexova Consulting — Innovate Today, Lead Tomorrow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #f5f3ee;
+    --cream: #ede9e0;
+    --gold: #b8966e;
+    --gold-light: #d4b896;
+    --mid: #6b6560;
+    --dark-bg: #111010;
+    --dark-card: #1a1917;
+    --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 5vw;
+    transition: background 0.4s var(--transition), backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(245,243,238,0.92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.85rem; font-weight: 400; color: var(--ink); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s var(--transition); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    padding: 0.6rem 1.6rem; background: var(--ink); color: var(--paper);
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--ink); transition: 0.3s; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 0 5vw; position: relative; overflow: hidden;
+    background: var(--paper);
+  }
+  .hero-bg {
+    position: absolute; right: 0; top: 0; width: 55%; height: 100%;
+    background: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80') center/cover no-repeat;
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right, var(--paper) 0%, rgba(245,243,238,0.5) 60%, transparent 100%);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 640px; }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem; display: block;
+    opacity: 0; animation: fadeUp 0.8s var(--transition) 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 300; line-height: 1.05; color: var(--ink);
+    margin-bottom: 1.8rem;
+    opacity: 0; animation: fadeUp 0.9s var(--transition) 0.5s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300; color: var(--mid); max-width: 420px;
+    line-height: 1.75; margin-bottom: 2.8rem;
+    opacity: 0; animation: fadeUp 0.9s var(--transition) 0.7s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    opacity: 0; animation: fadeUp 0.9s var(--transition) 0.9s forwards;
+  }
+  .btn-primary {
+    padding: 0.9rem 2.4rem; background: var(--ink); color: var(--paper);
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    border: none; cursor: pointer; transition: background 0.3s, transform 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-outline {
+    padding: 0.9rem 2.4rem; background: transparent; color: var(--ink);
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1.5px solid var(--ink); cursor: pointer; transition: all 0.3s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); }
+  .hero-scroll {
+    position: absolute; bottom: 3rem; left: 5vw;
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid);
+    opacity: 0; animation: fadeIn 1s 1.2s forwards;
+  }
+  .hero-scroll::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+  }
+
+  /* ── PARTNERS STRIP ── */
+  #partners {
+    padding: 2.5rem 5vw; border-top: 1px solid rgba(0,0,0,0.08);
+    background: var(--cream);
+  }
+  .partners-inner { display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; justify-content: center; }
+  .partner-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); white-space: nowrap; }
+  .partner-logos { display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
+  .partner-item { font-size: 0.8rem; font-weight: 500; color: var(--mid); letter-spacing: 0.06em; opacity: 0.7; transition: opacity 0.3s; }
+  .partner-item:hover { opacity: 1; }
+
+  /* ── SECTION WRAPPER ── */
+  section { padding: 7rem 5vw; }
+  .section-tag { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1.2rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.15; }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--paper); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; align-items: center; }
+  .about-image { position: relative; }
+  .about-image img { width: 100%; height: 520px; object-fit: cover; display: block; }
+  .about-stat-box {
+    position: absolute; bottom: -2rem; right: -2rem;
+    background: var(--ink); color: var(--paper);
+    padding: 2rem 2.5rem; min-width: 180px;
+  }
+  .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; line-height: 1; color: var(--gold); display: block; }
+  .stat-label { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,243,238,0.6); margin-top: 0.3rem; }
+  .about-content { padding-left: 2rem; }
+  .about-content p { color: var(--mid); font-weight: 300; line-height: 1.85; margin-bottom: 1.4rem; }
+  .about-content p strong { color: var(--ink); font-weight: 500; }
+
+  /* ── SERVICES ── */
+  #services { background: var(--cream); }
+  .services-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; margin-bottom: 5rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: rgba(0,0,0,0.1); }
+  .service-card {
+    background: var(--paper); padding: 2.5rem 2rem;
+    transition: background 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--ink); color: var(--paper); transform: translateY(-4px); }
+  .service-card:hover .service-icon { color: var(--gold); }
+  .service-card:hover .service-desc { color: rgba(245,243,238,0.65); }
+  .service-card:hover .service-num { color: var(--gold); }
+  .service-num { font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+  .service-icon { font-size: 1.8rem; margin-bottom: 1.2rem; display: block; }
+  .service-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 1rem; }
+  .service-desc { font-size: 0.88rem; line-height: 1.7; color: var(--mid); }
+  .service-list { list-style: none; margin-top: 1rem; }
+  .service-list li { font-size: 0.82rem; color: inherit; padding: 0.3rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; gap: 0.5rem; }
+  .service-card:hover .service-list li { border-color: rgba(255,255,255,0.1); }
+  .service-list li::before { content: '—'; color: var(--gold); font-size: 0.7rem; }
+
+  /* ── PROCESS ── */
+  #process { background: var(--dark-bg); color: var(--paper); position: relative; overflow: hidden; }
+  #process::before {
+    content: 'PROCESS'; position: absolute; top: -2rem; left: -2rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 18rem; font-weight: 600;
+    color: rgba(255,255,255,0.02); line-height: 1; pointer-events: none; user-select: none;
+  }
+  .process-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; margin-bottom: 5rem; }
+  .process-intro .section-title { color: var(--paper); }
+  .process-intro p { color: rgba(245,243,238,0.55); font-weight: 300; line-height: 1.8; }
+  .process-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+  .process-step {
+    background: var(--dark-card); padding: 3rem 2.5rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .process-step:hover { background: #222120; }
+  .process-step::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--gold); transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.4s var(--transition);
+  }
+  .process-step:hover::before { transform: scaleY(1); }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; color: rgba(255,255,255,0.06); position: absolute; top: 1rem; right: 1.5rem; line-height: 1; }
+  .step-tag { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--paper); margin-bottom: 1rem; }
+  .step-desc { font-size: 0.88rem; color: rgba(245,243,238,0.5); line-height: 1.75; }
+  .step-bullets { list-style: none; margin-top: 1.2rem; }
+  .step-bullets li { font-size: 0.82rem; color: rgba(245,243,238,0.4); padding: 0.4rem 0; display: flex; gap: 0.6rem; align-items: flex-start; }
+  .step-bullets li::before { content: '↗'; color: var(--gold); font-size: 0.7rem; margin-top: 0.15rem; }
+
+  /* ── STATS ── */
+  #stats {
+    background: var(--gold); padding: 5rem 5vw;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-big { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: var(--ink); line-height: 1; }
+  .stat-desc { font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.6); margin-top: 0.5rem; }
+
+  /* ── WORK ── */
+  #work { background: var(--paper); }
+  .work-intro { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; }
+  .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(0,0,0,0.1); }
+  .work-card {
+    position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer;
+  }
+  .work-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--transition); }
+  .work-card:hover img { transform: scale(1.06); }
+  .work-overlay {
+    position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem;
+    opacity: 0; transition: opacity 0.35s;
+  }
+  .work-card:hover .work-overlay { opacity: 1; }
+  .work-cat { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .work-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--paper); }
+
+  /* ── TESTIMONIAL ── */
+  #testimonial {
+    background: var(--ink); padding: 8rem 5vw; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  #testimonial::before {
+    content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 28rem; font-weight: 300;
+    color: rgba(255,255,255,0.03); position: absolute; top: -4rem; left: 2vw;
+    line-height: 1; pointer-events: none;
+  }
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 300; font-style: italic; color: var(--paper); max-width: 900px;
+    line-height: 1.5; margin-bottom: 3rem; position: relative; z-index: 1;
+  }
+  .testimonial-quote span { color: var(--gold); }
+  .testimonial-author { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .author-name { font-size: 0.9rem; font-weight: 500; color: var(--paper); letter-spacing: 0.1em; text-transform: uppercase; }
+  .author-role { font-size: 0.78rem; color: rgba(245,243,238,0.4); letter-spacing: 0.08em; }
+  .testimonial-stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 0.1rem; margin-bottom: 2rem; }
+
+  /* ── VALUES ── */
+  #values { background: var(--cream); }
+  .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5vw; align-items: start; margin-top: 4rem; }
+  .values-text p { color: var(--mid); font-weight: 300; line-height: 1.85; margin-bottom: 1.2rem; }
+  .values-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .value-item { padding: 1.8rem; background: var(--paper); border-left: 2px solid var(--gold); transition: transform 0.3s, box-shadow 0.3s; }
+  .value-item:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+  .value-icon { font-size: 1.4rem; margin-bottom: 0.8rem; }
+  .value-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .value-desc { font-size: 0.82rem; color: var(--mid); line-height: 1.65; }
+
+  /* ── BLOG ── */
+  #blog { background: var(--paper); }
+  .blog-intro { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .blog-card { cursor: pointer; }
+  .blog-image { position: relative; overflow: hidden; aspect-ratio: 16/10; margin-bottom: 1.5rem; }
+  .blog-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--transition); }
+  .blog-card:hover .blog-image img { transform: scale(1.05); }
+  .blog-category { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .blog-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 0.6rem; line-height: 1.4; transition: color 0.3s; }
+  .blog-card:hover .blog-title { color: var(--gold); }
+  .blog-meta { font-size: 0.75rem; color: var(--mid); }
+  .blog-excerpt { font-size: 0.85rem; color: var(--mid); line-height: 1.65; margin: 0.6rem 0 1rem; }
+  .read-more { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); display: flex; align-items: center; gap: 0.5rem; }
+  .read-more::after { content: '→'; transition: transform 0.3s; }
+  .blog-card:hover .read-more::after { transform: translateX(4px); }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--dark-bg); padding: 8rem 5vw; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-bg-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif; font-size: 22rem; font-weight: 600;
+    color: rgba(255,255,255,0.02); white-space: nowrap; pointer-events: none; user-select: none;
+  }
+  .cta-tag { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.5rem); font-weight: 300; color: var(--paper); margin-bottom: 1.5rem; line-height: 1.15; }
+  .cta-title em { font-style: italic; color: var(--gold); }
+  .cta-sub { font-size: 1rem; color: rgba(245,243,238,0.5); max-width: 500px; margin: 0 auto 3rem; line-height: 1.7; }
+  .cta-actions { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer { background: #0a0908; padding: 6rem 5vw 3rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4vw; margin-bottom: 4rem; }
+  .footer-brand .nav-logo { font-size: 1.7rem; margin-bottom: 1.2rem; display: block; }
+  .footer-brand p { font-size: 0.88rem; color: rgba(245,243,238,0.4); line-height: 1.75; max-width: 280px; }
+  .footer-col h4 { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.7rem; }
+  .footer-col a { font-size: 0.85rem; color: rgba(245,243,238,0.4); text-decoration: none; transition: color 0.3s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.78rem; color: rgba(245,243,238,0.25); }
+  .footer-socials { display: flex; gap: 1.5rem; }
+  .footer-socials a { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: rgba(245,243,238,0.4); font-size: 0.8rem; text-decoration: none; transition: all 0.3s; }
+  .footer-socials a:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--transition), transform 0.8s var(--transition); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+  .reveal-delay-4 { transition-delay: 0.6s; }
+
+  /* ── SCROLL PROGRESS ── */
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--gold); z-index: 200; width: 0%; transition: width 0.1s linear; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    #stats { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .hero-bg { width: 100%; opacity: 0.25; }
+    .about-grid, .services-intro, .process-intro, .values-grid, .process-steps { grid-template-columns: 1fr; }
+    .about-stat-box { right: 0; bottom: 0; position: relative; }
+    .about-content { padding-left: 0; margin-top: 1rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    #stats { grid-template-columns: repeat(2, 1fr); padding: 3rem 5vw; }
+    .work-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .work-intro, .blog-intro { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .values-list { grid-template-columns: 1fr; }
+  }
+
+  /* Mobile nav overlay */
+  .mobile-nav {
+    position: fixed; inset: 0; background: var(--paper); z-index: 99;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2rem; transform: translateX(-100%); transition: transform 0.4s var(--transition);
+  }
+  .mobile-nav.open { transform: translateX(0); }
+  .mobile-nav a { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--ink); text-decoration: none; }
+  .close-btn { position: absolute; top: 1.5rem; right: 2rem; font-size: 1.5rem; cursor: pointer; background: none; border: none; color: var(--ink); }
+
+footer .footer-brand .nav-logo {
+  color: #ffffff;
+}
+
+
+</style>
+
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Nexo<span>va</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#blog">Insights</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Get Started</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="close-btn" onclick="toggleMobileNav()">✕</button>
+  <a href="#about" onclick="toggleMobileNav()">About</a>
+  <a href="#services" onclick="toggleMobileNav()">Services</a>
+  <a href="#process" onclick="toggleMobileNav()">Process</a>
+  <a href="#work" onclick="toggleMobileNav()">Work</a>
+  <a href="#blog" onclick="toggleMobileNav()">Insights</a>
+  <a href="#cta" onclick="toggleMobileNav()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Strategic Innovation Consulting</span>
+    <h1 class="hero-title">Innovate today,<br><em>lead tomorrow.</em></h1>
+    <p class="hero-sub">Navigate the future with an innovation consulting partner. We transform today's challenges into your organization's greatest competitive advantages.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Start Your Journey</a>
+      <a href="#process" class="btn-outline">Our Process</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll to discover</div>
+</section>
+
+<!-- PARTNERS -->
+<div id="partners">
+  <div class="partners-inner">
+    <span class="partner-label">Trusted by leaders at</span>
+    <div class="partner-logos">
+      <span class="partner-item">★ GoodFirms</span>
+      <span class="partner-item">● REVIEWS.io</span>
+      <span class="partner-item">◆ Certifier</span>
+      <span class="partner-item">in LinkedIn</span>
+      <span class="partner-item">G Google</span>
+      <span class="partner-item">⊞ Microsoft</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image reveal">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="Team collaboration">
+      <div class="about-stat-box">
+        <span class="stat-number">15+</span>
+        <span class="stat-label">Years of Excellence</span>
+      </div>
+    </div>
+    <div class="about-content">
+      <span class="section-tag reveal">Our Story</span>
+      <h2 class="section-title reveal reveal-delay-1">Navigating success:<br><em>your strategic partner</em></h2>
+      <div class="reveal reveal-delay-2">
+        <p>At <strong>Nexova Consulting</strong>, we chase success through data. We please sharpen the ideas that define your organization's goals. Good intent is not close to <strong>ideals</strong>, we provide guidance on a client's knowledge, preparation, possibilities of success, and how to navigate strategy in a challenging world.</p>
+        <p>We lead with <strong>measurable impact</strong>. Our approach combines deep industry expertise, cutting-edge methodologies, and a genuine commitment to transforming how organizations operate, compete, and grow.</p>
+      </div>
+      <a href="#services" class="btn-primary reveal reveal-delay-3" style="margin-top:1rem">Discover More</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro">
+    <div>
+      <span class="section-tag reveal">What We Do</span>
+      <h2 class="section-title reveal reveal-delay-1">Our core<br><em>capabilities</em></h2>
+    </div>
+    <div class="reveal reveal-delay-2" style="padding-top: 3rem;">
+      <p style="color: var(--mid); font-weight: 300; line-height: 1.8;">From strategy to execution, we cover the full spectrum of business transformation — helping organizations adapt, grow, and lead in an era of constant change.</p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-num">01</span>
+      <span class="service-icon">◈</span>
+      <h3 class="service-title">Strategy</h3>
+      <p class="service-desc">Forging actionable paths toward growth and market leadership.</p>
+      <ul class="service-list">
+        <li>Market & Competitive Analysis</li>
+        <li>Digital Transformation</li>
+        <li>Innovation Roadmapping</li>
+      </ul>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-num">02</span>
+      <span class="service-icon">⬡</span>
+      <h3 class="service-title">Consulting</h3>
+      <p class="service-desc">Expert guidance tailored precisely to your business challenges.</p>
+      <ul class="service-list">
+        <li>Organizational Restructuring</li>
+        <li>Change Management</li>
+        <li>Performance Optimization</li>
+      </ul>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-num">03</span>
+      <span class="service-icon">◎</span>
+      <h3 class="service-title">Development</h3>
+      <p class="service-desc">Building resilient capabilities to sustain long-term advantage.</p>
+      <ul class="service-list">
+        <li>Human Capital Development</li>
+        <li>Technology Acceleration</li>
+        <li>Systems Integration</li>
+      </ul>
+    </div>
+    <div class="service-card reveal reveal-delay-3">
+      <span class="service-num">04</span>
+      <span class="service-icon">◉</span>
+      <h3 class="service-title">Monitoring</h3>
+      <p class="service-desc">Continuous insight loops that keep your strategy on course.</p>
+      <ul class="service-list">
+        <li>Real-Time Performance Metrics</li>
+        <li>Strategic Benchmarking</li>
+        <li>Risk Management</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-intro">
+    <div>
+      <span class="section-tag reveal">How We Work</span>
+      <h2 class="section-title reveal reveal-delay-1">Our process,<br><em>your advantage</em></h2>
+    </div>
+    <div class="reveal reveal-delay-2" style="padding-top: 3rem;">
+      <p>We deliver results through a disciplined yet adaptive four-phase methodology — each stage building upon the last to create compounding strategic advantage.</p>
+    </div>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <span class="step-num">01</span>
+      <span class="step-tag">Discovery</span>
+      <h3 class="step-title">Strategic Planning</h3>
+      <p class="step-desc">Deep-dive into your organization, market, and competitive landscape to uncover hidden opportunities.</p>
+      <ul class="step-bullets">
+        <li>Align goals with strategies</li>
+        <li>Define measurable milestones</li>
+        <li>Create stakeholder consensus</li>
+      </ul>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <span class="step-num">02</span>
+      <span class="step-tag">Implementation</span>
+      <h3 class="step-title">Consulting Excellence</h3>
+      <p class="step-desc">Collaborate with your teams to design and deploy tailored solutions with precision.</p>
+      <ul class="step-bullets">
+        <li>Collaborative problem-solving approach</li>
+        <li>Cross-functional expertise</li>
+        <li>Agile, collaborative approach</li>
+      </ul>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <span class="step-num">03</span>
+      <span class="step-tag">Activation</span>
+      <h3 class="step-title">Business Catalyst</h3>
+      <p class="step-desc">Activate transformation across the organization with measurable milestones and clear accountability.</p>
+      <ul class="step-bullets">
+        <li>Catalyze strategic alliances</li>
+        <li>Forge strategic alliances</li>
+        <li>Amplify core operations</li>
+      </ul>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <span class="step-num">04</span>
+      <span class="step-tag">Optimization</span>
+      <h3 class="step-title">Precision Monitoring</h3>
+      <p class="step-desc">Track, refine, and continuously improve — building an engine for perpetual performance.</p>
+      <ul class="step-bullets">
+        <li>Mine analytics for insights</li>
+        <li>Stress-test the strategy</li>
+        <li>Share scalable outcomes</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stat-item reveal">
+    <div class="stat-big" data-target="320">0</div>
+    <div class="stat-desc">Projects Delivered</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-1">
+    <div class="stat-big" data-target="98">0</div>
+    <div class="stat-desc">Client Satisfaction %</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-2">
+    <div class="stat-big" data-target="47">0</div>
+    <div class="stat-desc">Industries Served</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-3">
+    <div class="stat-big" data-target="15">0</div>
+    <div class="stat-desc">Years of Excellence</div>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-intro">
+    <div>
+      <span class="section-tag reveal">Innovation in Action</span>
+      <h2 class="section-title reveal reveal-delay-1">Mission <em>revealed</em></h2>
+    </div>
+    <a href="#" class="btn-outline reveal" style="white-space:nowrap">View All Cases</a>
+  </div>
+  <div class="work-grid">
+    <div class="work-card reveal">
+      <img src="https://images.unsplash.com/photo-1553028826-f4804a6dba3b?w=700&q=80" alt="Regional Affairs">
+      <div class="work-overlay">
+        <span class="work-cat">Public Sector</span>
+        <h3 class="work-name">Regional affairs</h3>
+      </div>
+    </div>
+    <div class="work-card reveal reveal-delay-1">
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80" alt="Drawing Tech">
+      <div class="work-overlay">
+        <span class="work-cat">Technology</span>
+        <h3 class="work-name">Drawing tech firm</h3>
+      </div>
+    </div>
+    <div class="work-card reveal reveal-delay-2">
+      <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=700&q=80" alt="Finance Strategy">
+      <div class="work-overlay">
+        <span class="work-cat">Financial Services</span>
+        <h3 class="work-name">Scale-up strategy</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section id="testimonial">
+  <div class="testimonial-stars">★★★★★</div>
+  <blockquote class="testimonial-quote reveal">
+    "Their commitment surpassed our expectations. <span>A truly innovative collaboration</span> that redefined what we believed was possible for our organization."
+  </blockquote>
+  <div class="testimonial-author reveal reveal-delay-1">
+    <span class="author-name">Patricia Kane</span>
+    <span class="author-role">CEO, Momentum Global</span>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div>
+    <span class="section-tag reveal">Our Foundation</span>
+    <h2 class="section-title reveal reveal-delay-1">Guiding principles:<br><em>our values unveiled</em></h2>
+  </div>
+  <div class="values-grid">
+    <div class="values-text reveal reveal-delay-2">
+      <p>At <strong>Nexova Consulting</strong>, we establish the foundation of our thinking in transparency, consistency, and trust-led relationships. We look beyond surface metrics to find strategies that truly fit.</p>
+      <p>Our teams aim to understand the unique complexity of each organization, bringing genuine curiosity, rigorous discipline, and relentless focus to every engagement.</p>
+      <p>Excellence is not a destination — it is the standard we bring to every meeting, every strategy, every deliverable. We believe the best outcomes emerge when expertise meets empathy.</p>
+    </div>
+    <div class="values-list">
+      <div class="value-item reveal">
+        <div class="value-icon">◈</div>
+        <h4 class="value-title">Integrity</h4>
+        <p class="value-desc">We operate with radical transparency and hold ourselves accountable at every step.</p>
+      </div>
+      <div class="value-item reveal reveal-delay-1">
+        <div class="value-icon">⬡</div>
+        <h4 class="value-title">Innovation</h4>
+        <p class="value-desc">We challenge convention and pursue breakthrough solutions with boldness.</p>
+      </div>
+      <div class="value-item reveal reveal-delay-2">
+        <div class="value-icon">◎</div>
+        <h4 class="value-title">Excellence</h4>
+        <p class="value-desc">We set the standard by delivering work that exceeds expectations, consistently.</p>
+      </div>
+      <div class="value-item reveal reveal-delay-3">
+        <div class="value-icon">◉</div>
+        <h4 class="value-title">Partnership</h4>
+        <p class="value-desc">We embed ourselves as true partners — your success is our singular mission.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="blog-intro">
+    <div>
+      <span class="section-tag reveal">Our Insights</span>
+      <h2 class="section-title reveal reveal-delay-1">Latest <em>thinking</em></h2>
+    </div>
+    <a href="#" class="btn-outline reveal">All Articles →</a>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card reveal">
+      <div class="blog-image">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="Discovering the success">
+      </div>
+      <span class="blog-category">Leadership</span>
+      <h3 class="blog-title">Discovering the success: cultivate strong leadership culture</h3>
+      <p class="blog-excerpt">Explore the key principles that separate transformational leaders from managers and how to build organizational culture.</p>
+      <span class="blog-meta">April 24, 2026</span><br>
+      <span class="read-more">Read Article</span>
+    </div>
+    <div class="blog-card reveal reveal-delay-1">
+      <div class="blog-image">
+        <img src="https://images.unsplash.com/photo-1573497019236-17f8177b81e8?w=600&q=80" alt="Maintaining market entry">
+      </div>
+      <span class="blog-category">Strategy</span>
+      <h3 class="blog-title">Maintaining market entry: the new competitive playbook</h3>
+      <p class="blog-excerpt">A deep look at emerging market entry strategies that are reshaping how organizations approach global expansion.</p>
+      <span class="blog-meta">April 18, 2026</span><br>
+      <span class="read-more">Read Article</span>
+    </div>
+    <div class="blog-card reveal reveal-delay-2">
+      <div class="blog-image">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80" alt="Excellence in organizational leadership">
+      </div>
+      <span class="blog-category">Operations</span>
+      <h3 class="blog-title">A comprehensive blueprint for operational excellence</h3>
+      <p class="blog-excerpt">How leading organizations are building operational excellence frameworks that adapt to rapid market shifts.</p>
+      <span class="blog-meta">April 10, 2026</span><br>
+      <span class="read-more">Read Article</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-bg-text">GROW</div>
+  <span class="cta-tag reveal">Start Today</span>
+  <h2 class="cta-title reveal reveal-delay-1">Grow your business:<br><em>start a new era of success</em></h2>
+  <p class="cta-sub reveal reveal-delay-2">Ready to transform your organization? Let's discuss your vision and chart a path to extraordinary results.</p>
+  <div class="cta-actions reveal reveal-delay-3">
+    <a href="#" class="btn-primary" style="background: var(--gold); color: var(--ink);">Schedule a Consultation</a>
+    <a href="#" class="btn-outline" style="border-color: rgba(245,243,238,0.3); color: var(--paper);">Explore Services</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">Nexo<span>va</span></a>
+      <p>Transforming organizations through strategic innovation, operational excellence, and measurable results.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Strategy</a></li>
+        <li><a href="#">Consulting</a></li>
+        <li><a href="#">Development</a></li>
+        <li><a href="#">Monitoring</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Work</a></li>
+        <li><a href="#">Insights</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">hello@nexova.com</a></li>
+        <li><a href="#">+971 4 000 0000</a></li>
+        <li><a href="#">Dubai, UAE</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Nexova Consulting. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="#" title="LinkedIn">in</a>
+      <a href="#" title="Twitter">𝕏</a>
+      <a href="#" title="Instagram">◈</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Scroll progress ──
+  window.addEventListener('scroll', () => {
+    const el = document.getElementById('progress-bar');
+    const h = document.documentElement;
+    const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    el.style.width = pct + '%';
+  });
+
+  // ── Sticky nav ──
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Reveal on scroll ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Counter animation ──
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = +el.dataset.target;
+        let start = 0;
+        const dur = 1800;
+        const step = target / (dur / 16);
+        const timer = setInterval(() => {
+          start = Math.min(start + step, target);
+          el.textContent = Math.floor(start) + (target === 98 ? '%' : '+');
+          if (start >= target) clearInterval(timer);
+        }, 16);
+        counterObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-big[data-target]').forEach(el => counterObs.observe(el));
+
+  // ── Mobile nav ──
+  function toggleMobileNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  // ── Smooth anchor scroll ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

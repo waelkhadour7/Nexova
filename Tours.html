@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voyage Tours - Your Gateway to the World</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #1565C0;
+  --blue-light: #1976D2;
+  --blue-dark: #0D47A1;
+  --green: #2E7D32;
+  --green-light: #43A047;
+  --gold: #F9A825;
+  --gold-light: #FDD835;
+  --white: #ffffff;
+  --gray-light: #f5f7fa;
+  --gray: #e8edf2;
+  --text-dark: #1a2332;
+  --text-mid: #4a5568;
+  --text-light: #718096;
+  --shadow-sm: 0 2px 8px rgba(21,101,192,0.08);
+  --shadow-md: 0 8px 32px rgba(21,101,192,0.12);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.15);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-dark);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-light); }
+::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  background: var(--blue-dark);
+  padding: 8px 0;
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+}
+.top-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+.top-bar a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+.top-bar a:hover { color: #fff; background: rgba(255,255,255,0.15); }
+.top-bar a.btn-new {
+  background: var(--gold);
+  color: var(--blue-dark);
+  font-weight: 700;
+  border-radius: 4px;
+}
+.top-bar a.btn-new:hover { background: var(--gold-light); }
+
+/* ===== NAV ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--gray);
+  transition: var(--transition);
+}
+.navbar.scrolled {
+  box-shadow: var(--shadow-md);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--blue);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+.logo-text { font-family: 'Playfair Display', serif; }
+.logo-text span:first-child {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1.1;
+}
+.logo-text span:last-child {
+  font-size: 10px;
+  color: var(--text-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 4px;
+  align-items: center;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-mid);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: var(--transition);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+.nav-links a:hover { color: var(--blue); background: rgba(21,101,192,0.06); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0D47A1 0%, #1565C0 35%, #1976D2 60%, #2E7D32 100%);
+  z-index: 0;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 800"><defs><radialGradient id="g1" cx="30%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.03"/><stop offset="100%" stop-color="%23000000" stop-opacity="0"/></radialGradient></defs><rect fill="url(%23g1)" width="1440" height="800"/><circle cx="200" cy="200" r="300" fill="%23ffffff" opacity="0.03"/><circle cx="1200" cy="600" r="400" fill="%23F9A825" opacity="0.05"/></svg>') no-repeat center/cover;
+}
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.8) 1px, transparent 0);
+  background-size: 40px 40px;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.hero-text { animation: fadeInLeft 0.9s ease forwards; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(249,168,37,0.2);
+  border: 1px solid rgba(249,168,37,0.4);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-badge::before { content: '✈'; font-size: 14px; }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.hero-title span { color: var(--gold-light); display: block; }
+.hero-subtitle {
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+  border: none;
+  letter-spacing: 0.3px;
+}
+.btn-primary {
+  background: var(--gold);
+  color: var(--blue-dark);
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,168,37,0.4); }
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 1.5px solid rgba(255,255,255,0.5);
+}
+.btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; transform: translateY(-2px); }
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 48px;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  display: block;
+}
+.stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.hero-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  animation: fadeInRight 0.9s ease forwards;
+}
+.hero-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.hero-card:hover { background: rgba(255,255,255,0.18); transform: translateY(-4px); }
+.hero-card:first-child { grid-column: span 2; }
+.hcard-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+.hcard-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: white;
+  margin-bottom: 6px;
+}
+.hcard-text { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+/* ===== SCROLL INDICATOR ===== */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: bounce 2s infinite;
+  z-index: 2;
+}
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent); }
+
+/* ===== SECTIONS ===== */
+section { padding: 80px 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: rgba(21,101,192,0.08);
+  padding: 6px 14px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.section-subtitle {
+  font-size: 15px;
+  color: var(--text-light);
+  line-height: 1.7;
+  max-width: 560px;
+}
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.view-all {
+  color: var(--blue);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1.5px solid var(--blue);
+  border-radius: 8px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.view-all:hover { background: var(--blue); color: white; }
+
+/* ===== ABOUT SECTION ===== */
+.about-section { background: var(--gray-light); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.about-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray);
+  position: relative;
+  overflow: hidden;
+}
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.about-card.blue::before { background: linear-gradient(90deg, var(--blue), var(--blue-light)); }
+.about-card.green::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+.about-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.about-card.blue .about-card-icon { background: rgba(21,101,192,0.1); }
+.about-card.green .about-card-icon { background: rgba(46,125,50,0.1); }
+.about-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--text-dark);
+  margin-bottom: 14px;
+}
+.about-card p { font-size: 14px; color: var(--text-mid); line-height: 1.8; }
+.about-card .read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+  transition: var(--transition);
+}
+.about-card .read-more:hover { gap: 10px; }
+
+/* ===== DESTINATIONS ===== */
+.dest-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.dest-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  height: 260px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+.dest-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.dest-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.dest-card:hover .dest-img { transform: scale(1.08); }
+.dest-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+  transition: var(--transition);
+}
+.dest-card:hover .dest-overlay { background: linear-gradient(to top, rgba(13,71,161,0.85) 0%, rgba(0,0,0,0.2) 70%, transparent 100%); }
+.dest-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+}
+.dest-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  background: var(--gold);
+  color: var(--blue-dark);
+}
+.dest-badge.top { background: #ff5722; color: white; }
+.dest-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  display: block;
+  margin-bottom: 2px;
+}
+.dest-country { font-size: 12px; color: rgba(255,255,255,0.8); }
+
+/* ===== HOTELS ===== */
+.hotels-section { background: var(--gray-light); }
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.hotel-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.hotel-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.hotel-img-wrap { position: relative; height: 180px; overflow: hidden; }
+.hotel-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.hotel-card:hover .hotel-img { transform: scale(1.05); }
+.hotel-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--blue);
+  color: white;
+}
+.hotel-badge.gold { background: var(--gold); color: var(--blue-dark); }
+.hotel-badge.green { background: var(--green); }
+.hotel-body { padding: 16px; }
+.hotel-location { font-size: 11px; color: var(--text-light); margin-bottom: 4px; }
+.hotel-name { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; line-height: 1.3; }
+.hotel-stars { color: var(--gold); font-size: 13px; }
+
+/* ===== TOURS ===== */
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+.tour-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.tour-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.tour-img-wrap { position: relative; height: 170px; overflow: hidden; }
+.tour-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.tour-card:hover .tour-img { transform: scale(1.08); }
+.tour-body { padding: 14px; }
+.tour-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--green); letter-spacing: 0.5px; margin-bottom: 6px; }
+.tour-name { font-size: 13px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; line-height: 1.4; }
+.tour-type { font-size: 11px; color: var(--text-light); margin-bottom: 10px; }
+.tour-price { font-size: 16px; font-weight: 700; color: var(--blue); }
+.tour-price span { font-size: 11px; font-weight: 400; color: var(--text-light); }
+
+/* ===== PACKAGES ===== */
+.packages-section { background: var(--gray-light); }
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 20px;
+}
+.pkg-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray);
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+.pkg-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.pkg-img-wrap { position: relative; height: 180px; overflow: hidden; }
+.pkg-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.pkg-card:hover .pkg-img { transform: scale(1.08); }
+.pkg-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+.pkg-price-badge {
+  background: var(--gold);
+  color: var(--blue-dark);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+.pkg-body { padding: 16px; }
+.pkg-loc {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.pkg-name { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; line-height: 1.4; }
+.pkg-desc { font-size: 12px; color: var(--text-light); line-height: 1.5; }
+.pkg-meta {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--text-light);
+}
+.pkg-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ===== SERVICES ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+.srv-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  text-align: center;
+  border: 1px solid var(--gray);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.srv-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--green));
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+.srv-card:hover::after { transform: scaleX(1); }
+.srv-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--blue); }
+.srv-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 16px;
+  background: rgba(21,101,192,0.08);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  transition: var(--transition);
+}
+.srv-card:hover .srv-icon { background: var(--blue); }
+.srv-name { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+.srv-desc { font-size: 12px; color: var(--text-light); line-height: 1.6; }
+
+/* ===== VIDEO SECTION ===== */
+.video-section { background: var(--blue-dark); }
+.video-section .section-title { color: white; }
+.video-section .section-tag { background: rgba(249,168,37,0.2); color: var(--gold-light); }
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.video-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  height: 180px;
+  cursor: pointer;
+}
+.video-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.video-card:hover .video-thumb { transform: scale(1.1); }
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: var(--transition);
+}
+.video-card:hover .video-overlay { background: rgba(21,101,192,0.6); }
+.play-btn {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: var(--transition);
+}
+.video-card:hover .play-btn { transform: scale(1.15); background: white; }
+.video-label { color: white; font-size: 12px; font-weight: 600; text-align: center; }
+
+/* ===== BOOKING FORM ===== */
+.booking-section { background: var(--gray-light); }
+.booking-wrapper {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.booking-form-wrap {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray);
+}
+.booking-form-wrap h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+.booking-form-wrap p { font-size: 14px; color: var(--text-light); margin-bottom: 28px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 12px; font-weight: 600; color: var(--text-mid); letter-spacing: 0.3px; }
+.form-group input,
+.form-group select {
+  padding: 11px 14px;
+  border: 1.5px solid var(--gray);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text-dark);
+  transition: var(--transition);
+  background: var(--gray-light);
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(21,101,192,0.1);
+}
+.form-full { grid-column: span 2; }
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  transition: var(--transition);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-submit:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(21,101,192,0.35); }
+.brochures-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.brochure-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--gray);
+  box-shadow: var(--shadow-sm);
+}
+.brochure-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+.brochure-items { display: flex; flex-direction: column; gap: 10px; }
+.brochure-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--gray-light);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.brochure-item:hover { background: rgba(21,101,192,0.06); }
+.brochure-thumb {
+  width: 48px;
+  height: 60px;
+  background: var(--blue);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: white;
+  flex-shrink: 0;
+}
+.brochure-info h5 { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+.brochure-info p { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+/* ===== STATS STRIP ===== */
+.stats-strip {
+  background: var(--blue);
+  padding: 50px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+.stat-block { color: white; }
+.stat-block .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 44px;
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+}
+.stat-block .num span { color: var(--gold-light); }
+.stat-block .lbl {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== FOOTER ===== */
+.footer { background: var(--text-dark); color: rgba(255,255,255,0.8); padding: 60px 0 0; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.footer-brand .logo-text span:first-child { color: white; }
+.footer-brand .logo-text span:last-child { color: rgba(255,255,255,0.5); }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-top: 16px; margin-bottom: 20px; }
+.social-links { display: flex; gap: 10px; }
+.social-btn {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.social-btn:hover { background: var(--blue-light); transform: translateY(-2px); }
+.footer-col h4 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 20px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.footer-col ul a:hover { color: var(--gold-light); padding-left: 4px; }
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+.contact-item strong { display: block; color: rgba(255,255,255,0.8); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.footer-bottom {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+.footer-bottom a:hover { color: rgba(255,255,255,0.7); }
+
+/* ===== SCROLL ANIMATION ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ===== KEYFRAMES ===== */
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ===== PLACEHOLDER IMG COLORS ===== */
+.img-ajman { background: linear-gradient(135deg, #c4956a, #d4b483); }
+.img-umm { background: linear-gradient(135deg, #6aad8e, #4a8c70); }
+.img-baku { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+.img-tbilisi { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+.img-dubai1 { background: linear-gradient(135deg, #0891b2, #0e7490); }
+.img-dubai2 { background: linear-gradient(135deg, #059669, #047857); }
+.img-hotel3 { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+.img-hotel4 { background: linear-gradient(135deg, #d97706, #b45309); }
+.img-hotel5 { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+
+/* placeholder to simulate images */
+.img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: rgba(255,255,255,0.8);
+}
+
+/* ===== IATA BADGE ===== */
+.iata-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(21,101,192,0.08);
+  border: 1px solid rgba(21,101,192,0.2);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 1px;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-cards { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .dest-grid { grid-template-columns: repeat(2,1fr); }
+  .video-grid { grid-template-columns: repeat(2,1fr); }
+  .booking-wrapper { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 600px) {
+  .dest-grid, .hotels-grid, .tours-grid, .packages-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .form-full { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-inner">
+    <span>✈ IATA Accredited Agent</span>
+    <a href="#">Travel Agent Login</a>
+    <a href="#" class="btn-new">New Agent Registration</a>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">✈</div>
+      <div class="logo-text">
+        <span>VOYAGE</span>
+        <span>TOURS & EXCURSIONS</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#tours">Tours & Excursions</a></li>
+      <li><a href="#">MICE</a></li>
+      <li><a href="#booking">Contact Us</a></li>
+      <li><a href="#">Affiliate Program</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-pattern"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">Accredited Destination Management Company</div>
+      <h1 class="hero-title">
+        Discover the World
+        <span>with Voyage Tours</span>
+      </h1>
+      <p class="hero-subtitle">
+        A leading Destination Management Company with bilingual professional staff. 
+        Providing wide range of tours and excursions around UAE with follow-up from time of arrival till departure.
+      </p>
+      <div class="hero-btns">
+        <a href="#tours" class="btn btn-primary">🗺 Explore Tours</a>
+        <a href="#booking" class="btn btn-outline">Plan My Trip</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Destinations</span></div>
+        <div class="stat"><span class="stat-num">15K+</span><span class="stat-label">Happy Travelers</span></div>
+        <div class="stat"><span class="stat-num">20+</span><span class="stat-label">Years Experience</span></div>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="hero-card">
+        <div class="hcard-label">Message from Chairman</div>
+        <div class="hcard-title">Excellence in Every Journey</div>
+        <div class="hcard-text">Our specialized team emphasizes individual motivation with international recognition for commitment to communication, hospitality and professionalism.</div>
+      </div>
+      <div class="hero-card">
+        <div class="hcard-label">UAE Tours</div>
+        <div class="hcard-title">Explore Emirates</div>
+        <div class="hcard-text">Desert safaris, city tours, and coastal adventures.</div>
+      </div>
+      <div class="hero-card">
+        <div class="hcard-label">Caucasus</div>
+        <div class="hcard-title">Baku & Beyond</div>
+        <div class="hcard-text">Discover Azerbaijan and Georgia's hidden gems.</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-tag">🌟 Who We Are</div>
+        <h2 class="section-title">Your Trusted Travel Partner<br>in the UAE</h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="about-card blue reveal">
+        <div class="about-card-icon">👨‍💼</div>
+        <h3>Message from Our Chairman</h3>
+        <p>Voyage Tours specialized team emphasizes the importance of individual motivation. The employees of the group have earned international respect and recognition for their creativity and readiness and for their commitment to communication, hospitality and professionalism.</p>
+        <a href="#" class="read-more">Read More →</a>
+      </div>
+      <div class="about-card green reveal reveal-delay-2">
+        <div class="about-card-icon">🌍</div>
+        <h3>About Voyage Tours</h3>
+        <p>A leading Destination Management Company with its own fleet of vehicles. Providing logical extension of Arabic hospitality and wealth of beauty. Providing wide range of tours and excursions around UAE. Bilingual professional staff with the follow-up from time of Arrival till time of departure.</p>
+        <a href="#" class="read-more">Read More →</a>
+        <div class="iata-badge">✓ IATA Accredited Agent</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-block reveal"><span class="num">500<span>+</span></span><div class="lbl">Top Destinations</div></div>
+      <div class="stat-block reveal reveal-delay-1"><span class="num">150<span>+</span></span><div class="lbl">Preferred Hotels</div></div>
+      <div class="stat-block reveal reveal-delay-2"><span class="num">200<span>+</span></span><div class="lbl">Tours & Activities</div></div>
+      <div class="stat-block reveal reveal-delay-3"><span class="num">15<span>K+</span></span><div class="lbl">Happy Travelers</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOP DESTINATIONS -->
+<section id="destinations">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-tag">📍 Explore</div>
+        <h2 class="section-title">Top Destinations</h2>
+        <p class="section-subtitle">From the golden deserts of the UAE to the breathtaking landscapes of the Caucasus</p>
+      </div>
+      <a href="#" class="view-all">View All Destinations →</a>
+    </div>
+    <div class="dest-grid">
+      <div class="dest-card reveal">
+        <div class="img-placeholder img-ajman" style="position:absolute;inset:0;">🏰</div>
+        <div class="dest-overlay"></div>
+        <div class="dest-info">
+          <span class="dest-badge">Heritage</span>
+          <span class="dest-name">Ajman</span>
+          <span class="dest-country">United Arab Emirates</span>
+        </div>
+      </div>
+      <div class="dest-card reveal reveal-delay-1">
+        <div class="img-placeholder img-umm" style="position:absolute;inset:0;">🌴</div>
+        <div class="dest-overlay"></div>
+        <div class="dest-info">
+          <span class="dest-badge">Preferred</span>
+          <span class="dest-name">Umm Al Quwain</span>
+          <span class="dest-country">United Arab Emirates</span>
+        </div>
+      </div>
+      <div class="dest-card reveal reveal-delay-2">
+        <div class="img-placeholder img-baku" style="position:absolute;inset:0;">🌆</div>
+        <div class="dest-overlay"></div>
+        <div class="dest-info">
+          <span class="dest-badge top">Top Selling</span>
+          <span class="dest-name">Baku</span>
+          <span class="dest-country">Azerbaijan</span>
+        </div>
+      </div>
+      <div class="dest-card reveal reveal-delay-3">
+        <div class="img-placeholder img-tbilisi" style="position:absolute;inset:0;">🏔</div>
+        <div class="dest-overlay"></div>
+        <div class="dest-info">
+          <span class="dest-badge top">Top Selling</span>
+          <span class="dest-name">Tbilisi</span>
+          <span class="dest-country">Georgia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREFERRED HOTELS -->
+<section class="hotels-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-tag">🏨 Luxury Stays</div>
+        <h2 class="section-title">Preferred Hotels</h2>
+        <p class="section-subtitle">Handpicked 5-star properties for an unforgettable experience</p>
+      </div>
+      <a href="#" class="view-all">View All Hotels →</a>
+    </div>
+    <div class="hotels-grid">
+      <div class="hotel-card reveal">
+        <div class="hotel-img-wrap">
+          <div class="img-placeholder img-dubai1" style="position:absolute;inset:0;background:linear-gradient(135deg,#0e7490,#0891b2);">🏖</div>
+          <span class="hotel-badge gold">Preferred</span>
+        </div>
+        <div class="hotel-body">
+          <div class="hotel-location">📍 Ras Al Khaimah, UAE</div>
+          <div class="hotel-name">Rixos Bab Al Bahr</div>
+          <div class="hotel-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="hotel-card reveal reveal-delay-1">
+        <div class="hotel-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#16a34a,#15803d);">🌿</div>
+          <span class="hotel-badge">Bestseller</span>
+        </div>
+        <div class="hotel-body">
+          <div class="hotel-location">📍 Ras Al Khaimah, UAE</div>
+          <div class="hotel-name">Radisson Resort RAK Marjan Island</div>
+          <div class="hotel-stars">★★★★</div>
+        </div>
+      </div>
+      <div class="hotel-card reveal reveal-delay-2">
+        <div class="hotel-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#dc2626,#b91c1c);">🌴</div>
+          <span class="hotel-badge green">Top Selling</span>
+        </div>
+        <div class="hotel-body">
+          <div class="hotel-location">📍 Dubai, UAE</div>
+          <div class="hotel-name">Rixos The Palm Dubai Hotel</div>
+          <div class="hotel-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="hotel-card reveal reveal-delay-3">
+        <div class="hotel-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#d97706,#b45309);">🌊</div>
+          <span class="hotel-badge green">Top Selling</span>
+        </div>
+        <div class="hotel-body">
+          <div class="hotel-location">📍 Dubai, UAE</div>
+          <div class="hotel-name">Le Royal Meridien Beach Resort</div>
+          <div class="hotel-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="hotel-card reveal reveal-delay-4">
+        <div class="hotel-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#7c3aed,#6d28d9);">👑</div>
+          <span class="hotel-badge">Bestseller</span>
+        </div>
+        <div class="hotel-body">
+          <div class="hotel-location">📍 Dubai, UAE</div>
+          <div class="hotel-name">Atlantis The Palm</div>
+          <div class="hotel-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOURS & ACTIVITIES -->
+<section id="tours">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-tag">🎯 Adventures</div>
+        <h2 class="section-title">Tours & Activities</h2>
+        <p class="section-subtitle">Unforgettable experiences crafted for every traveler</p>
+      </div>
+      <a href="#" class="view-all">View All Tours →</a>
+    </div>
+    <div class="tours-grid">
+      <div class="tour-card reveal">
+        <div class="tour-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#0f172a,#1e3a5f);">⛵</div>
+          <div style="position:absolute;top:10px;left:10px;background:#ef4444;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px;">Top Selling</div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-tag">📍 Dubai, UAE</div>
+          <div class="tour-name">Marina Dhow Cruise</div>
+          <div class="tour-type">Cruising & Yachts</div>
+          <div class="tour-price">$90 <span>from</span></div>
+        </div>
+      </div>
+      <div class="tour-card reveal reveal-delay-1">
+        <div class="tour-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#92400e,#b45309);">🏜</div>
+          <div style="position:absolute;top:10px;left:10px;background:#ef4444;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px;">Top Selling</div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-tag">📍 Dubai, UAE</div>
+          <div class="tour-name">Heritage Desert Safari</div>
+          <div class="tour-type">Adventure</div>
+          <div class="tour-price">$190 <span>from</span></div>
+        </div>
+      </div>
+      <div class="tour-card reveal reveal-delay-2">
+        <div class="tour-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#075985,#0369a1);">🌃</div>
+          <div style="position:absolute;top:10px;left:10px;background:#ef4444;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px;">Top Selling</div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-tag">📍 Dubai, UAE</div>
+          <div class="tour-name">Dubai City Tour</div>
+          <div class="tour-type">Sightseeing</div>
+          <div class="tour-price">$58 <span>from</span></div>
+        </div>
+      </div>
+      <div class="tour-card reveal reveal-delay-3">
+        <div class="tour-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#854d0e,#a16207);">🏎</div>
+          <div style="position:absolute;top:10px;left:10px;background:#ef4444;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px;">Top Selling</div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-tag">📍 Dubai, OAE</div>
+          <div class="tour-name">Dune Buggy Tour</div>
+          <div class="tour-type">Fun & Sports</div>
+          <div class="tour-price">$410 <span>from</span></div>
+        </div>
+      </div>
+      <div class="tour-card reveal reveal-delay-4">
+        <div class="tour-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#1e40af,#1d4ed8);">🚤</div>
+          <div style="position:absolute;top:10px;left:10px;background:#ef4444;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px;">Top Selling</div>
+        </div>
+        <div class="tour-body">
+          <div class="tour-tag">📍 Dubai Marina</div>
+          <div class="tour-name">Speed Boat Tour (Love Boat)</div>
+          <div class="tour-type">Cruising & Yachts</div>
+          <div class="tour-price">$35 <span>from</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO MOMENTS -->
+<section class="video-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-tag">🎬 Experience</div>
+        <h2 class="section-title">Video Moments</h2>
+      </div>
+    </div>
+    <div class="video-grid">
+      <div class="video-card reveal">
+        <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#7c3aed,#5b21b6);">🎡</div>
+        <div class="video-overlay">
+          <div class="play-btn">▶</div>
+          <div class="video-label">Warner Bros. World Abu Dhabi</div>
+        </div>
+      </div>
+      <div class="video-card reveal reveal-delay-1">
+        <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#dc2626,#b91c1c);">🏎</div>
+        <div class="video-overlay">
+          <div class="play-btn">▶</div>
+          <div class="video-label">Ferrari World Abu Dhabi</div>
+        </div>
+      </div>
+      <div class="video-card reveal reveal-delay-2">
+        <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#0f766e,#0d9488);">🎢</div>
+        <div class="video-overlay">
+          <div class="play-btn">▶</div>
+          <div class="video-label">Warner Bros. World Abu Dhabi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATION PACKAGES -->
+<section class="packages-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-tag">📦 Packages</div>
+        <h2 class="section-title">Destination Packages</h2>
+        <p class="section-subtitle">Complete travel experiences — accommodation, tours, and more in one package</p>
+      </div>
+      <a href="#" class="view-all">View All Packages →</a>
+    </div>
+    <div class="packages-grid">
+      <div class="pkg-card reveal">
+        <div class="pkg-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#1d4ed8,#3b82f6);">🌆</div>
+          <div class="pkg-overlay"><span class="pkg-price-badge">$1,580</span></div>
+          <div style="position:absolute;top:12px;right:12px;background:#16a34a;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;">Bestseller</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-loc">📍 Baku, Azerbaijan</div>
+          <div class="pkg-name">The Pearl of the Caucasus</div>
+          <div class="pkg-desc">Azerbaijan is a place unlike anywhere else on earth, offering a fascinating Soviet legacy.</div>
+          <div class="pkg-meta">
+            <span>🌙 7 Nights</span>
+            <span>✈ Flights incl.</span>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card reveal reveal-delay-1">
+        <div class="pkg-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#0f766e,#14b8a6);">🏞</div>
+          <div class="pkg-overlay"><span class="pkg-price-badge">$890</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-loc">📍 Baku, Azerbaijan</div>
+          <div class="pkg-name">Merci Baku, Absheron Peninsula</div>
+          <div class="pkg-desc">Azerbaijan is a place unlike anywhere else on earth, offering a fascinating Soviet legacy.</div>
+          <div class="pkg-meta">
+            <span>🌙 5 Nights</span>
+            <span>✈ Flights incl.</span>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card reveal reveal-delay-2">
+        <div class="pkg-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#7c3aed,#a855f7);">🌃</div>
+          <div class="pkg-overlay"><span class="pkg-price-badge">$755</span></div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-loc">📍 Baku, Azerbaijan</div>
+          <div class="pkg-name">Merci Baku Leisure</div>
+          <div class="pkg-desc">Azerbaijan is a place unlike anywhere else on earth, offering a fascinating Soviet legacy.</div>
+          <div class="pkg-meta">
+            <span>🌙 4 Nights</span>
+            <span>✈ Flights incl.</span>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card reveal reveal-delay-3">
+        <div class="pkg-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#be185d,#ec4899);">🎉</div>
+          <div class="pkg-overlay"><span class="pkg-price-badge">$700</span></div>
+          <div style="position:absolute;top:12px;right:12px;background:#ef4444;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;">Top Selling</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-loc">📍 Baku, Azerbaijan</div>
+          <div class="pkg-name">Eid Holidays Package</div>
+          <div class="pkg-desc">Azerbaijan is a place unlike anywhere else on earth, offering a fascinating Soviet legacy.</div>
+          <div class="pkg-meta">
+            <span>🌙 4 Nights</span>
+            <span>✈ Flights incl.</span>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card reveal reveal-delay-4">
+        <div class="pkg-img-wrap">
+          <div class="img-placeholder" style="position:absolute;inset:0;background:linear-gradient(135deg,#065f46,#10b981);">🏔</div>
+          <div class="pkg-overlay"><span class="pkg-price-badge">$1,080</span></div>
+          <div style="position:absolute;top:12px;right:12px;background:#16a34a;color:white;font-size:9px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase;">Bestseller</div>
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-loc">📍 Baku, Azerbaijan</div>
+          <div class="pkg-name">Feel the Caucasian Contrast</div>
+          <div class="pkg-desc">Azerbaijan is a place unlike anywhere else on earth, offering a fascinating Soviet legacy.</div>
+          <div class="pkg-meta">
+            <span>🌙 6 Nights</span>
+            <span>✈ Flights incl.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-tag">🛎 What We Offer</div>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Comprehensive travel services designed for your comfort and convenience</p>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="srv-card reveal">
+        <div class="srv-icon">🤝</div>
+        <div class="srv-name">Ahlan Service</div>
+        <div class="srv-desc">Ahlan services comprises of a group of highly trained and self-motivated individuals</div>
+      </div>
+      <div class="srv-card reveal reveal-delay-1">
+        <div class="srv-icon">👑</div>
+        <div class="srv-name">Al Majlis</div>
+        <div class="srv-desc">Experience new heights of luxury and exclusivity with Al Majlis premium services</div>
+      </div>
+      <div class="srv-card reveal reveal-delay-2">
+        <div class="srv-icon">✈</div>
+        <div class="srv-name">HALA Services</div>
+        <div class="srv-desc">Arrive or depart in style and comfort at Sharjah International Airport</div>
+      </div>
+      <div class="srv-card reveal reveal-delay-3">
+        <div class="srv-icon">🌹</div>
+        <div class="srv-name">Marhaba Service</div>
+        <div class="srv-desc">Inspired by the famed hospitality of Arabic culture — warm and professional</div>
+      </div>
+      <div class="srv-card reveal reveal-delay-4">
+        <div class="srv-icon">🤲</div>
+        <div class="srv-name">Meet & Assist</div>
+        <div class="srv-desc">Abu Dhabi, a fusion of warm Arabic hospitality and vibrant cosmopolitan culture</div>
+      </div>
+      <div class="srv-card reveal">
+        <div class="srv-icon">🚐</div>
+        <div class="srv-name">Transfers</div>
+        <div class="srv-desc">State of the art services when it comes to Airport Transfers or intercity transfers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="booking">
+  <div class="container">
+    <div class="section-header reveal">
+      <div>
+        <div class="section-tag">📝 Get Started</div>
+        <h2 class="section-title">Design Your Trip</h2>
+        <p class="section-subtitle">Tell us your dream and we'll make it a reality</p>
+      </div>
+    </div>
+    <div class="booking-wrapper">
+      <div class="booking-form-wrap reveal">
+        <h3>Plan Your Perfect Journey</h3>
+        <p>Fill in your preferences and our team will craft the ideal itinerary for you</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Destination</label>
+            <select>
+              <option>Dubai</option>
+              <option>Abu Dhabi</option>
+              <option>Ras Al Khaimah</option>
+              <option>Baku, Azerbaijan</option>
+              <option>Tbilisi, Georgia</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Adults</label>
+            <select><option>1 Adult</option><option>2 Adults</option><option>3 Adults</option><option>4+ Adults</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Children</label>
+            <select><option>No Children</option><option>1 Child</option><option>2 Children</option><option>3+ Children</option></select>
+          </div>
+          <div class="form-group">
+            <label>Hotel Category</label>
+            <select><option>5 Star</option><option>4 Star</option><option>3 Star</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Arrival Date</label>
+            <input type="date">
+          </div>
+          <div class="form-group">
+            <label>Departure Date</label>
+            <input type="date">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group form-full">
+            <label>Nationality</label>
+            <select>
+              <option>Select Nationality</option>
+              <option>UAE</option>
+              <option>Saudi Arabia</option>
+              <option>Kuwait</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-submit" onclick="this.innerHTML='✓ Request Sent! We\'ll contact you soon.';this.style.background='#2E7D32';">
+          ✈ Send Your Request
+        </button>
+      </div>
+      <div class="brochures-wrap">
+        <div class="brochure-card reveal reveal-delay-1">
+          <h4>Profile & Brochures</h4>
+          <div class="brochure-items">
+            <div class="brochure-item">
+              <div class="brochure-thumb">📄</div>
+              <div class="brochure-info">
+                <h5>Company Profile 2024</h5>
+                <p>Full overview of our services and destinations</p>
+              </div>
+            </div>
+            <div class="brochure-item">
+              <div class="brochure-thumb">🗺</div>
+              <div class="brochure-info">
+                <h5>UAE Tours Brochure</h5>
+                <p>All tours & activities in the Emirates</p>
+              </div>
+            </div>
+            <div class="brochure-item">
+              <div class="brochure-thumb">✈</div>
+              <div class="brochure-info">
+                <h5>Caucasus Packages</h5>
+                <p>Azerbaijan & Georgia destination packages</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="brochure-card reveal reveal-delay-2">
+          <h4>Contact Us</h4>
+          <div class="contact-item">
+            <div>
+              <strong>Address</strong>
+              Westbury Office Tower, 29th Floor, Business Bay Dubai, United Arab Emirates
+            </div>
+          </div>
+          <div class="contact-item">
+            <div>
+              <strong>Phone</strong>
+              +971 (4) 3880222
+            </div>
+          </div>
+          <div class="contact-item">
+            <div>
+              <strong>Email</strong>
+              info@voyagetours.net
+            </div>
+          </div>
+          <div class="contact-item">
+            <div>
+              <strong>P.O. Box</strong>
+              80096
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="text-decoration:none;display:flex;align-items:center;gap:10px;">
+          <div class="logo-icon" style="background:rgba(255,255,255,0.15);">✈</div>
+          <div class="logo-text">
+            <span style="color:white;">VOYAGE</span>
+            <span style="color:rgba(255,255,255,0.5);">TOURS & EXCURSIONS</span>
+          </div>
+        </a>
+        <p>A leading Destination Management Company with its own fleet of vehicles. Providing the finest hospitality and tourism services across UAE and beyond.</p>
+        <div class="social-links">
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">📷</a>
+          <a href="#" class="social-btn">🐦</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">→ Home</a></li>
+          <li><a href="#">→ About</a></li>
+          <li><a href="#">→ Services</a></li>
+          <li><a href="#">→ Tours & Excursions</a></li>
+          <li><a href="#">→ Contact Us</a></li>
+          <li><a href="#">→ FAQ's</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Agent Area</h4>
+        <ul>
+          <li><a href="#">→ New Agent Registration</a></li>
+          <li><a href="#">→ General Register</a></li>
+          <li><a href="#">→ Hotel Registration</a></li>
+          <li><a href="#">→ Affirmable Request</a></li>
+          <li><a href="#">→ Rates Form</a></li>
+          <li><a href="#">→ LGA Registration</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <div class="contact-item"><div><strong>Address</strong>Westbury Office Tower, 29th Floor, Business Bay Dubai, UAE</div></div>
+        <div class="contact-item"><div><strong>P.O. Box</strong>80096</div></div>
+        <div class="contact-item"><div><strong>Phone</strong>+971 (4) 3880222</div></div>
+        <div class="contact-item"><div><strong>Email</strong>info@voyagetours.net</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© VoyageTours 2024. All Rights Reserved.</span>
+      <span><a href="#">Terms & Conditions</a> · <a href="#">Privacy Policy</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Counter animation
+function animateCounter(el, target, suffix='') {
+  let current = 0;
+  const duration = 2000;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = Math.floor(current).toLocaleString() + suffix;
+  }, 16);
+}
+
+// Observe stats
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const nums = entry.target.querySelectorAll('.num');
+      nums.forEach(num => {
+        const text = num.textContent;
+        const match = text.match(/[\d,]+/);
+        if (match) {
+          const val = parseInt(match[0].replace(',',''));
+          const suffix = text.replace(/[\d,]+/, '');
+          const span = num.querySelector('span');
+          const spanText = span ? span.outerHTML : '';
+          num.innerHTML = '0' + spanText;
+          animateCounter(num.childNodes[0], val);
+        }
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stats-strip').forEach(el => statsObserver.observe(el));
+</script>
+</body>
+</html>
